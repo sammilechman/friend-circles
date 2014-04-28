@@ -9,10 +9,10 @@
 #  updated_at :datetime
 #
 
-class PostShares < ActiveRecord::Base
+class PostShare < ActiveRecord::Base
   validates :post, :circle, null: false
 
   belongs_to :post, inverse_of: :post_share
 
-  belongs_to :circle inverse_of: :post_share
+  belongs_to :circle, inverse_of: :post_share
 end

@@ -16,10 +16,18 @@ class CirclesController < ApplicationController
   end
 
   def edit
-
+    @circle = Circle.find(params[:id])
+    render :edit
   end
 
   def update
+    @circle = Circle.find(params[:id])
+    if @circle.update_attributes(circle_params)
+      redirect_to circle_url(@circle)
+    else
+      flash.now[:errors] = @circle.errors.full_messages
+      render :edit
+    end
 
   end
 
@@ -32,7 +40,8 @@ class CirclesController < ApplicationController
   end
 
   def show
-
+    @circle = Circle.find(params[:id])
+    render :show
   end
 
   private

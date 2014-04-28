@@ -1,0 +1,9 @@
+<h3>
+  <%= @circle.name %> show page!
+</h3>
+
+<ul><strong>Users in this circle:</strong>
+  <% @circle.users.each do |u| %>
+    <li><%= link_to u.username, user_url(u) %></li>
+  <% end %>
+</ul>

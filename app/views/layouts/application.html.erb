@@ -8,6 +8,15 @@
 </head>
 <body>
 
+<% if logged_in? %>
+  <p>
+    You are currently logged in as: <%= link_to current_user.username, user_url(current_user) %>
+  </p>
+  <%= button_to "Log Out!", session_url, method: :delete %>
+<% else %>
+  <%= link_to "Sign In!", new_session_url %>
+<% end %>
+
 <% if flash[:errors] %>
   <% flash[:errors].each do |error| %>
     <%= error %>
