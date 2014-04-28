@@ -1,0 +1,33 @@
+<form action="<%= action %>" method="POST" accept-charset="utf-8">
+  <%= auth_token_input %>
+  <input type="hidden" name="_method" value="<%= method %>">
+
+  <input type="hidden" name="circle[owner_id]" value="<%= current_user.id %>">
+
+  <input type="hidden" name="circle[user_ids][]" value="">
+
+  <label>Name of circle:
+    <input type="text" name="circle[name]" value="<%= circle.name %>">
+  </label>
+  <br>
+
+  Add people to your circle: <br>
+
+  <% User.all.each do |u| %>
+
+    <% next if u == current_user %>
+
+    <label>
+      <input type="checkbox"
+             name="circle[user_ids][]"
+             value="<%= u.id %>"
+             <%= "checked" if circle.users.include?(u) %>>
+      <%= u.username %>
+    </label>
+    <br>
+
+  <% end %>
+
+
+  <p><input type="submit" value="<%= message %>"></p>
+</form>

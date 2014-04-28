@@ -17,6 +17,17 @@ class User < ActiveRecord::Base
   validates :username, :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
+  has_many :circle_memberships, inverse_of: :user
+
+  has_many :owned_circles,
+           class_name: "Circle",
+           foreign_key: :owner_id,
+           primary_key: :id
+
+  has_many :memberships, through: :circle_memberships, source: :circle
+
+  has_many :posts
+
   def password=(plaintext)
     @password = plaintext
     self.password_digest = BCrypt::Password.create(plaintext) if @password
