@@ -1,13 +1,3 @@
-<h3>
-  Post show page: <%= @post.body %>
-</h3>
+<h3>Post show page!</h3>
 
-<ul>
-  <% @post.links.each do |link| %>
-
-    <li> <a href= <%= ("http://" unless link.url =~ /http:\/\//) + link.url %>>
-      <%= link.url %>
-    </li></a>
-
-  <% end %>
-</ul>
+<%= render @post %>

@@ -12,7 +12,7 @@
 class PostShare < ActiveRecord::Base
   validates :post, :circle, null: false
 
-  belongs_to :post, inverse_of: :post_share
+  belongs_to :post, inverse_of: :post_shares
 
-  belongs_to :circle, inverse_of: :post_share
+  belongs_to :circle, inverse_of: :post_shares
 end

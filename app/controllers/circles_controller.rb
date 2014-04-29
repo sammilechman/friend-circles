@@ -1,10 +1,13 @@
 class CirclesController < ApplicationController
+  before_action :require_current_user!
+
   def new
     @circle = Circle.new
     render :new
   end
 
   def create
+    # @circle = current_user.circles.new(circle_params)
     @circle = Circle.new(circle_params)
 
     if @circle.save
@@ -36,11 +39,11 @@ class CirclesController < ApplicationController
   end
 
   def index
-
+    @circles = current_user.circles
   end
 
   def show
-    @circle = Circle.find(params[:id])
+    @circle = current_user.circles.find(params[:id])
     render :show
   end
 

@@ -1,0 +1,5 @@
+<h3>This is your own feed, <%= @user.username %>!</h3>
+
+<% @user.feed_items.each do |post| %>
+  <%= render post %>
+<% end %>

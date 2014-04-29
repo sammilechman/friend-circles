@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   validates :username, :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
+  before_validation :ensure_session_token
 
   has_many :circle_memberships, inverse_of: :user
 
@@ -25,6 +26,8 @@ class User < ActiveRecord::Base
            primary_key: :id
 
   has_many :memberships, through: :circle_memberships, source: :circle
+
+  has_many :member_posts, through: :memberships, source: :posts
 
   has_many :posts
 
@@ -46,5 +49,14 @@ class User < ActiveRecord::Base
     self.session_token = SecureRandom.urlsafe_base64(16)
     self.save!
     self.session_token
+  end
+
+  def feed_items
+    self.member_posts.order(created_at: :desc)
+  end
+
+  private
+  def ensure_session_token
+    self.session_token ||= reset_session_token!
   end
 end

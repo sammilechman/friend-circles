@@ -1,0 +1,11 @@
+<h3><%= post.body %></h3>
+
+<ul>
+  <% post.links.each do |link| %>
+
+    <li> <a href= <%= ("http://" unless link.url =~ /http:\/\//) + link.url %>>
+      <%= link.url %>
+    </li></a>
+
+  <% end %>
+</ul>

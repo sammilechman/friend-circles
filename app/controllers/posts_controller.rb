@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
+  before_action :require_current_user!
 
   def new
     @post = Post.new
-    3.times { @post.links << Link.new }
+    3.times { @post.links.new }
     render :new
   end
 
@@ -43,7 +44,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:body, :user_id)
+    params.require(:post).permit(:body, :user_id, :circle_ids)
   end
 
   def link_params
