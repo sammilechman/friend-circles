@@ -20,4 +20,15 @@ class ApplicationController < ActionController::Base
     params.require(:user).permit(:username, :password)
   end
 
+  def post_params
+    params.require(:post).permit(:body, :user_id, :circle_ids)
+  end
+
+  def link_params
+    params.permit( links: [:url, :post_id] )
+          .require(:links)
+          .values
+          .reject { |data| data.values.all?(&:blank?) }
+  end
+
 end

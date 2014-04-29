@@ -21,11 +21,13 @@ class PostsController < ApplicationController
   end
 
   def edit
-
+    @post = Post.find(params[:id])
+    3.times { @post.links.new }
+    render :edit
   end
 
   def update
-
+    #@post = Post.find(params[:id])
   end
 
   def destroy
@@ -39,19 +41,6 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     render :show
-  end
-
-  private
-
-  def post_params
-    params.require(:post).permit(:body, :user_id, :circle_ids)
-  end
-
-  def link_params
-    params.permit( links: [:url, :post_id] )
-          .require(:links)
-          .values
-          .reject { |data| data.values.all?(&:blank?) }
   end
 
 end

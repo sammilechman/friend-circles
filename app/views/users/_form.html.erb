@@ -12,5 +12,12 @@
   </label>
   <br>
 
+  <% if message == "Create User!" %>
+
+    <%= render partial: "/posts/postfield", locals: { post: post } %>
+
+  <% end %>
+
   <p><input type="submit" value="<%= message %>"></p>
+
 </form>

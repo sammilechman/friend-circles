@@ -1,17 +1,23 @@
 class UsersController < ApplicationController
   before_action :require_current_user!, except: [:new, :create]
   def new
+    @post = Post.new
     @user = User.new
+    3.times { @post.links.new }
     render :new
   end
 
   def create
     @user = User.new(user_params)
+    @post = @user.posts.new(post_params)
+    @post.links.new(link_params)
     if @user.save
       login!(@user)
       redirect_to user_url(@user)
     else
       flash.now[:errors] = @user.errors.full_messages
+      @post = Post.new
+      3.times { @post.links.new }
       render :new
     end
 

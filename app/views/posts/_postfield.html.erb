@@ -1,0 +1,26 @@
+<label>Post body:
+  <input type="text" name="post[body]" value="<%= post.body %>">
+</label><br>
+
+<% post.links.each_with_index do |link, i| %>
+  <label>URL for post:
+    <input type="text" name="links[<%= i %>][url]" value="<%= link.url %>">
+  </label><br>
+<% end %>
+
+<% if current_user %>
+
+  <% current_user.owned_circles.each_with_index do |circle, i| %>
+
+    <label>
+      <input type="checkbox"
+             name="post[circle_ids][]"
+             value="<%= circle.id %>"
+             <%= "checked" if post.circles.include?(circle) %>>
+      <%= circle.name %>
+    </label>
+    <br>
+
+<% end %>
+
+<% end %>
